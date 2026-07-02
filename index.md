@@ -9,4 +9,4 @@ title: 竹叶舟
 
 ## 全书目录
 
-[查看完整目录](chapters)
+[查看完整目录](chapters.md)
