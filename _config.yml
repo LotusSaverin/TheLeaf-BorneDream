@@ -1,3 +1,5 @@
-title: My Daydreams
-description: My first Jekyll website
-theme: minima
+title: 竹叶舟
+description: 身如不系之舟。
+header_pages:
+  - chapters.md
+  - setting-index.md
