@@ -1,0 +1,11 @@
+.site-header { padding: 1rem 0; border-bottom: 1px solid #eee; background: #fff; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 1rem; }
+.site-title { margin: 0; display: inline-block; font-size: 1.25rem; }
+.site-title a { text-decoration: none; color: inherit; }
+.site-nav { display: inline-block; margin-left: 1.5rem; }
+.site-nav__link { margin-right: 1rem; color: #333; text-decoration: none; }
+.site-nav__link.active { font-weight: 600; text-decoration: underline; }
+@media (max-width: 640px) {
+  .site-nav { display: block; margin-left: 0.25rem; margin-top: 0.5rem; }
+  .site-nav__link { display: inline-block; margin-right: 0.75rem; }
+}
