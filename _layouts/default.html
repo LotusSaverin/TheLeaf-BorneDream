@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title }} — {{ site.title }}</title>
 
+    <!-- Performance: preconnect to fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Fonts: Chinese-friendly serif for headings + sans for body -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -15,9 +19,11 @@
     <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
     {% include header.html %}
-    <main>
+    <main id="main-content">
       {{ content }}
     </main>
-  <script src="{{ '/assets/js/header.js' | relative_url }}"></script> </body>
+  <script src="{{ '/assets/js/header.js' | relative_url }}"></script>
+  </body>
 </html>
