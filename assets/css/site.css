@@ -16,6 +16,9 @@ body{
   font-family: "Noto Sans SC", system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft Yahei", sans-serif;
   color:var(--text);
   background: var(--bg);
+  /* subtle paper texture using layered gradients */
+  background-image: radial-gradient(rgba(0,0,0,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+  background-size: 20px 20px, 100% 100%;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.85;
@@ -32,13 +35,13 @@ main{
   box-shadow: 0 6px 24px rgba(16,24,40,0.04);
 }
 
-/* 标题：全部使用衬线字体以增强古风��� */
+/* 标题：全部使用衬线字体以增强古风感 */
 h1,h2,h3,h4{ font-family: "Noto Serif SC", "Noto Sans SC", serif; color:var(--text); margin:0 0 .6rem; line-height:1.2; }
-h1{ font-size:2rem; font-weight:700; letter-spacing:.6px; margin-top:0.25rem; }
+h1{ font-size:2rem; font-weight:800; letter-spacing:.6px; margin-top:0.25rem; }
 h2{ font-size:1.4rem; font-weight:700; margin-top:1rem; }
 h3{ font-size:1.05rem; font-weight:600; margin-top:0.85rem; }
 
-/* 标题装饰（细线） */
+/* 标题装饰（细线 + 中心小纹饰） */
 h1::after, h2::after{
   content: "";
   display:block;
@@ -47,12 +50,34 @@ h1::after, h2::after{
   background: linear-gradient(90deg, var(--accent), rgba(24,70,90,0.2));
   margin-top:0.6rem;
   border-radius:2px;
+  opacity:0.95;
+}
+
+h1::before{
+  content: "";
+  display:block;
+  width:18px; height:18px;
+  margin: 0.5rem auto 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="14" font-family="serif" fill="%2318465a">✦</text></svg>');
   opacity:0.9;
 }
 
 /* 段落与列表 */
 p{ margin:0 0 1rem; font-size:1rem; color:var(--text); }
 ul,ol{ margin:0 0 1rem 1.25rem; }
+
+/* 卡片样式（用于目录/索引） */
+.index-card{
+  background: var(--card);
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  box-shadow: 0 8px 20px rgba(16,24,40,0.03);
+  margin-bottom: 1rem;
+}
+.index-card ul{ margin:0; padding-left:1rem; }
+.index-card li{ padding: .35rem 0; }
+.index-card a{ color:var(--accent); }
 
 /* 链接 */
 a{ color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(24,70,90,0.06); transition:all .12s ease; }
