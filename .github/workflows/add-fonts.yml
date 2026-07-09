@@ -21,7 +21,7 @@ jobs:
           mkdir -p assets/fonts
           ls -la assets || true
 
-      - name: Download Noto Serif SC (400/700) - debug
+      - name: Download Noto Serif SC (400/700)
         run: |
           set -eux
           CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap")
@@ -43,7 +43,7 @@ jobs:
             fi
           done < serif-urls.txt || true
 
-      - name: Download Noto Sans SC (400/700) - debug
+      - name: Download Noto Sans SC (400/700)
         run: |
           set -eux
           CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap")
@@ -81,9 +81,3 @@ jobs:
           title: "chore(fonts): add self-hosted Noto SC woff2 (400,700)"
           body: |
             This PR was created by workflow to add self-hosted Noto SC woff2 fonts (400 and 700).
-          paths: |
-            assets/fonts/**
-            serif.css
-            sans.css
-            serif-urls.txt
-            sans-urls.txt
