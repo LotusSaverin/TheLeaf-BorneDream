@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 
-  // Optional: close nav when clicking a nav link (mobile)
+  // Close nav when clicking a nav link (mobile)
   nav.addEventListener('click', function (e) {
     if (e.target.tagName === 'A' && nav.classList.contains('open')) {
       nav.classList.remove('open');
