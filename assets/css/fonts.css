@@ -1,0 +1,43 @@
+/* Self-hosted font definitions for Noto Serif SC and Noto Sans SC
+   Place font files in assets/fonts/ with the exact filenames used below:
+   - NotoSerifSC-Regular.woff2
+   - NotoSerifSC-Bold.woff2
+   - NotoSansSC-Regular.woff2
+   - NotoSansSC-Bold.woff2
+*/
+
+@font-face{
+  font-family: 'Noto Serif SC Local';
+  src: url('/assets/fonts/NotoSerifSC-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: 'Noto Serif SC Local';
+  src: url('/assets/fonts/NotoSerifSC-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: 'Noto Sans SC Local';
+  src: url('/assets/fonts/NotoSansSC-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: 'Noto Sans SC Local';
+  src: url('/assets/fonts/NotoSansSC-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallbacks to ensure graceful degradation */
+:root{
+  --font-heading: 'Noto Serif SC Local', 'Noto Serif SC', serif;
+  --font-body: 'Noto Sans SC Local', 'Noto Sans SC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
