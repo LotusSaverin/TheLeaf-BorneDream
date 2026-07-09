@@ -26,7 +26,6 @@ jobs:
           set -eux
           CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap")
           echo "$CSS" > serif.css
-          # produce lines: "<weight> <url>"
           echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.woff2)/,u)){print m[1] " " u[1]} }' > serif-urls.txt
           echo "=== Serif URLs ==="
           cat serif-urls.txt || true
@@ -36,56 +35,5 @@ jobs:
               700) OUT="assets/fonts/NotoSerifSC-Bold.woff2" ;;
               *) OUT="assets/fonts/NotoSerifSC-${W}.woff2" ;;
             esac
-            echo "Attempt to download weight=$W URL=$URL -> $OUT"
-            if [ -n "$URL" ]; then
-              curl -L --fail --retry 3 -o "$OUT" "$URL" || echo "curl failed for $URL"
-            else
-              echo "No URL found for weight $W"
-            fi
-          done < serif-urls.txt || true
-
-      - name: Download Noto Sans SC (400/700) - debug
-        run: |
-          set -eux
-          CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap")
-          echo "$CSS" > sans.css
-          echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.woff2)/,u)){print m[1] " " u[1]} }' > sans-urls.txt
-          echo "=== Sans URLs ==="
-          cat sans-urls.txt || true
-          while read -r W URL; do
-            case "$W" in
-              400) OUT="assets/fonts/NotoSansSC-Regular.woff2" ;;
-              700) OUT="assets/fonts/NotoSansSC-Bold.woff2" ;;
-              *) OUT="assets/fonts/NotoSansSC-${W}.woff2" ;;
-            esac
-            echo "Attempt to download weight=$W URL=$URL -> $OUT"
-            if [ -n "$URL" ]; then
-              curl -L --fail --retry 3 -o "$OUT" "$URL" || echo "curl failed for $URL"
-            else
-              echo "No URL found for weight $W"
-            fi
-          done < sans-urls.txt || true
-
-      - name: Show downloaded files
-        run: |
-          echo "Files in assets/fonts:"
-          ls -la assets/fonts || true
-          echo "Root files (for debug):"
-          ls -la || true
-
-      - name: Add files and create pull request if changed
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: chore(fonts): add self-hosted Noto SC woff2 (400,700)
-          branch: add/noto-sc-fonts
-          title: chore(fonts): add self-hosted Noto SC woff2 (400,700)
-          body: |
-            This PR was created by workflow to add self-hosted Noto SC woff2 fonts (400 and 700).
-          # files to ensure are included; create-pull-request will stage repo changes
-          paths: |
-            assets/fonts/**
-            serif.css
-            sans.css
-            serif-urls.txt
-            sans-urls.txt
+            echo*
+
