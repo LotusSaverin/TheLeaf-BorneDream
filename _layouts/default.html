@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <title>{{ page.title }} — {{ site.title }}</title>
     <!-- your head content -->
+    <link rel="stylesheet" href="{{ '/assets/css/header.css' | relative_url }}">
   </head>
   <body>
     {% include header.html %}
     <main>
       {{ content }}
     </main>
-  </body>
+  <script src="{{ '/assets/js/header.js' | relative_url }}"></script> </body>
 </html>
