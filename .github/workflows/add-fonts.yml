@@ -72,6 +72,27 @@ jobs:
           echo "Root files (for debug):"
           ls -la || true
 
+      - name: Commit and push downloaded fonts
+        run: |
+          set -eux
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # create or switch to branch that will hold the fonts
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git fetch origin
+          git checkout -B add/noto-sc-fonts
+
+          # add files (if present)
+          git add assets/fonts/*.woff2 serif.css sans.css serif-urls.txt sans-urls.txt || true
+
+          # commit only if there are staged changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(fonts): add self-hosted Noto SC woff2 (400,700)"
+            git push --set-upstream origin add/noto-sc-fonts --force
+          fi
+
       - name: Create pull request with changes
         uses: peter-evans/create-pull-request@v4
         with:
