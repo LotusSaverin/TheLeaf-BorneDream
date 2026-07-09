@@ -76,9 +76,9 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: chore(fonts): add self-hosted Noto SC woff2 (400,700)
+          commit-message: "chore(fonts): add self-hosted Noto SC woff2 (400,700)"
           branch: add/noto-sc-fonts
-          title: chore(fonts): add self-hosted Noto SC woff2 (400,700)
+          title: "chore(fonts): add self-hosted Noto SC woff2 (400,700)"
           body: |
             This PR was created by workflow to add self-hosted Noto SC woff2 fonts (400 and 700).
           paths: |
