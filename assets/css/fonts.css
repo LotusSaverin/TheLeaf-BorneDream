@@ -1,21 +1,21 @@
 /* Self-hosted font definitions for Noto Serif SC and Noto Sans SC
-   Place font files in assets/fonts/ with the exact filenames used below:
-   - NotoSerifSC-Regular.woff2
-   - NotoSerifSC-Bold.woff2
-   - NotoSansSC-Regular.woff2
-   - NotoSansSC-Bold.woff2
+   Place font files in assets/fonts/ with the exact filenames used below (both woff2 and ttf are supported):
+   - NotoSerifSC-Regular.woff2 or NotoSerifSC-Regular.ttf
+   - NotoSerifSC-Bold.woff2 or NotoSerifSC-Bold.ttf
+   - NotoSansSC-Regular.woff2 or NotoSansSC-Regular.ttf
+   - NotoSansSC-Bold.woff2 or NotoSansSC-Bold.ttf
 */
 
 @font-face{
   font-family: 'Noto Serif SC Local';
-  src: url('/assets/fonts/NotoSerifSC-Regular.woff2') format('woff2');
+  src: url('/assets/fonts/NotoSerifSC-Regular.woff2') format('woff2'), url('/assets/fonts/NotoSerifSC-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face{
   font-family: 'Noto Serif SC Local';
-  src: url('/assets/fonts/NotoSerifSC-Bold.woff2') format('woff2');
+  src: url('/assets/fonts/NotoSerifSC-Bold.woff2') format('woff2'), url('/assets/fonts/NotoSerifSC-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -23,14 +23,14 @@
 
 @font-face{
   font-family: 'Noto Sans SC Local';
-  src: url('/assets/fonts/NotoSansSC-Regular.woff2') format('woff2');
+  src: url('/assets/fonts/NotoSansSC-Regular.woff2') format('woff2'), url('/assets/fonts/NotoSansSC-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face{
   font-family: 'Noto Sans SC Local';
-  src: url('/assets/fonts/NotoSansSC-Bold.woff2') format('woff2');
+  src: url('/assets/fonts/NotoSansSC-Bold.woff2') format('woff2'), url('/assets/fonts/NotoSansSC-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
