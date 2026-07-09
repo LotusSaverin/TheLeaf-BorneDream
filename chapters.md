@@ -1,3 +1,9 @@
+---
+title: 目录
+layout: page
+permalink: /chapters/
+---
+
 # 目录
 
 - [第一章·此身如传舍](chapter-01.md)
