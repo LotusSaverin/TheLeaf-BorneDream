@@ -1,16 +1,25 @@
 <!doctype html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title }} — {{ site.title }}</title>
 
-    <!-- Performance: preconnect to fonts -->
+    <!-- Performance: preconnect to fonts (fallback) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Fonts: Chinese-friendly serif for headings + sans for body -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Preload self-hosted fonts (will be used when font files are present) -->
+    <link rel="preload" href="{{ '/assets/fonts/NotoSerifSC-Regular.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ '/assets/fonts/NotoSerifSC-Bold.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ '/assets/fonts/NotoSansSC-Regular.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ '/assets/fonts/NotoSansSC-Bold.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+
+    <!-- Self-hosted font CSS (fallback to Google Fonts remains for browsers without local files) -->
+    <link rel="stylesheet" href="{{ '/assets/css/fonts.css' | relative_url }}">
+
+    <!-- Fonts: Google Fonts fallback (kept as fallback until local fonts are uploaded) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Site styles (古风雅致) -->
     <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
