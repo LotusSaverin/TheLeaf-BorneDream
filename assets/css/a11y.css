@@ -1,0 +1,12 @@
+/* Accessibility & focus styles + skip-link visuals */
+.skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+.skip-link:focus{ position:fixed; left:1rem; top:1rem; width:auto; height:auto; padding:.4rem .6rem; background:var(--card); color:var(--accent); border-radius:6px; z-index:1000; box-shadow:0 6px 18px rgba(16,24,40,0.08); }
+
+/* focus styles for keyboard users */
+.site-nav__link:focus, .site-nav-toggle:focus, a:focus, button:focus{ outline:3px solid rgba(24,70,90,0.18); outline-offset:4px; }
+
+/* reduce visual noise but keep accessibility */
+.site-nav__link{ transition: background .12s ease, color .12s ease, box-shadow .12s ease; }
+
+/* improve contrast for small text if needed */
+.post-meta, footer{ color:var(--muted); }
