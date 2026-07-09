@@ -9,8 +9,8 @@ title: 竹叶舟
 
 ## 全书目录
 
-[查看完整目录](chapters.md)
+[查看目录](chapters.md)
 
-## 设定内容索引
+## 设定索引
 
-[查看设定集索引](setting-index.md)
+[查看设定集](setting-index.md)
