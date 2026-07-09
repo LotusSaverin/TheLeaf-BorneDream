@@ -8,7 +8,7 @@
       {% for p in site.header_pages %}
         {% assign page_obj = site.pages | where: "path", p | first %}
         {% if page_obj %}
-          <a href="{{ page_obj.url | relative_url }}">{{ page_obj.title }}</a>
+          <a href="{{ page_obj.url | relative_url }}" class="site-nav__link{% raw %}{% endraw %}{% if page.url == page_obj.url %} active{% endif %}">{{ page_obj.title }}</a>
         {% endif %}
       {% endfor %}
     </nav>
