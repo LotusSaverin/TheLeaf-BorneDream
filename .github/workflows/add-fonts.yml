@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   download-and-create-pr:
-    name: Download Noto SC woff2 and create PR
+    name: Download Noto SC font files and create PR
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,45 +21,55 @@ jobs:
           mkdir -p assets/fonts
           ls -la assets || true
 
-      - name: Download Noto Serif SC (400/700) - debug
+      - name: Download Noto Serif SC (400/700)
         run: |
           set -eux
-          CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap")
+          # Use a Chrome-like User-Agent so Google Fonts returns woff2 when available
+          CSS=$(curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap")
           echo "$CSS" > serif.css
-          echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.woff2)/,u)){print m[1] " " u[1]} }' > serif-urls.txt
+          # Match multiple font file extensions (woff2, woff, ttf, otf)
+          echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.(woff2|woff|ttf|otf))/,u)){print m[1] " " u[1]} }' > serif-urls.txt
           echo "=== Serif URLs ==="
           cat serif-urls.txt || true
           while read -r W URL; do
             case "$W" in
-              400) OUT="assets/fonts/NotoSerifSC-Regular.woff2" ;;
-              700) OUT="assets/fonts/NotoSerifSC-Bold.woff2" ;;
-              *) OUT="assets/fonts/NotoSerifSC-${W}.woff2" ;;
+              400) BASE="NotoSerifSC-Regular" ;;
+              700) BASE="NotoSerifSC-Bold" ;;
+              *)   BASE="NotoSerifSC-${W}" ;;
             esac
-            echo "Attempt to download weight=$W URL=$URL -> $OUT"
             if [ -n "$URL" ]; then
+              EXT="${URL##*.}"
+              OUT="assets/fonts/${BASE}.${EXT}"
+              echo "Attempt to download weight=$W URL=$URL -> $OUT"
               curl -L --fail --retry 3 -o "$OUT" "$URL" || echo "curl failed for $URL"
+              ls -lh "$OUT" || true
+              sha256sum "$OUT" || true
             else
               echo "No URL found for weight $W"
             fi
           done < serif-urls.txt || true
 
-      - name: Download Noto Sans SC (400/700) - debug
+      - name: Download Noto Sans SC (400/700)
         run: |
           set -eux
-          CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap")
+          CSS=$(curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap")
           echo "$CSS" > sans.css
-          echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.woff2)/,u)){print m[1] " " u[1]} }' > sans-urls.txt
+          echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.(woff2|woff|ttf|otf))/,u)){print m[1] " " u[1]} }' > sans-urls.txt
           echo "=== Sans URLs ==="
           cat sans-urls.txt || true
           while read -r W URL; do
             case "$W" in
-              400) OUT="assets/fonts/NotoSansSC-Regular.woff2" ;;
-              700) OUT="assets/fonts/NotoSansSC-Bold.woff2" ;;
-              *) OUT="assets/fonts/NotoSansSC-${W}.woff2" ;;
+              400) BASE="NotoSansSC-Regular" ;;
+              700) BASE="NotoSansSC-Bold" ;;
+              *)   BASE="NotoSansSC-${W}" ;;
             esac
-            echo "Attempt to download weight=$W URL=$URL -> $OUT"
             if [ -n "$URL" ]; then
+              EXT="${URL##*.}"
+              OUT="assets/fonts/${BASE}.${EXT}"
+              echo "Attempt to download weight=$W URL=$URL -> $OUT"
               curl -L --fail --retry 3 -o "$OUT" "$URL" || echo "curl failed for $URL"
+              ls -lh "$OUT" || true
+              sha256sum "$OUT" || true
             else
               echo "No URL found for weight $W"
             fi
@@ -72,18 +82,33 @@ jobs:
           echo "Root files (for debug):"
           ls -la || true
 
+      - name: Commit and push downloaded fonts
+        run: |
+          set -eux
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # create or switch to branch that will hold the fonts
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git fetch origin
+          git checkout -B add/noto-sc-fonts
+
+          # add files (if present)
+          git add assets/fonts/* serif.css sans.css serif-urls.txt sans-urls.txt || true
+
+          # commit only if there are staged changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(fonts): add self-hosted Noto SC font files"
+            git push --set-upstream origin add/noto-sc-fonts --force
+          fi
+
       - name: Create pull request with changes
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore(fonts): add self-hosted Noto SC woff2 (400,700)"
+          commit-message: "chore(fonts): add self-hosted Noto SC font files"
           branch: add/noto-sc-fonts
-          title: "chore(fonts): add self-hosted Noto SC woff2 (400,700)"
+          title: "chore(fonts): add self-hosted Noto SC font files"
           body: |
-            This PR was created by workflow to add self-hosted Noto SC woff2 fonts (400 and 700).
-          paths: |
-            assets/fonts/**
-            serif.css
-            sans.css
-            serif-urls.txt
-            sans-urls.txt
+            This PR was created by workflow to add self-hosted Noto SC font files (400 and 700). If fonts are ttf/woff instead of woff2, the workflow will include those files and fonts.css will include fallbacks.
