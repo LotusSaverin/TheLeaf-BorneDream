@@ -1,0 +1,72 @@
+name: Add self-hosted Noto SC fonts
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  download-and-commit:
+    name: Download Noto SC woff2 and commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare directories
+        run: |
+          mkdir -p assets/fonts
+
+      - name: Download Noto Serif SC (400/700) and save as woff2
+        run: |
+          set -eux
+          CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap")
+          echo "$CSS" > serif.css
+          echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.woff2)/,u)){print m[1] " " u[1]} }' > serif-urls.txt
+          while read -r W URL; do
+            case "$W" in
+              400) OUT="assets/fonts/NotoSerifSC-Regular.woff2" ;;
+              700) OUT="assets/fonts/NotoSerifSC-Bold.woff2" ;;
+              *) OUT="assets/fonts/NotoSerifSC-${W}.woff2" ;;
+            esac
+            echo "Downloading $URL -> $OUT"
+            curl -L --fail --retry 3 -o "$OUT" "$URL"
+          done < serif-urls.txt
+
+      - name: Download Noto Sans SC (400/700) and save as woff2
+        run: |
+          set -eux
+          CSS=$(curl -s -A "Mozilla/5.0" "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap")
+          echo "$CSS" > sans.css
+          echo "$CSS" | awk 'BEGIN{RS="@font-face";FS="\n"} NR>1{ if(match($0,/font-weight: *([0-9]+)/,m) && match($0,/(https:[^)]*\.woff2)/,u)){print m[1] " " u[1]} }' > sans-urls.txt
+          while read -r W URL; do
+            case "$W" in
+              400) OUT="assets/fonts/NotoSansSC-Regular.woff2" ;;
+              700) OUT="assets/fonts/NotoSansSC-Bold.woff2" ;;
+              *) OUT="assets/fonts/NotoSansSC-${W}.woff2" ;;
+            esac
+            echo "Downloading $URL -> $OUT"
+            curl -L --fail --retry 3 -o "$OUT" "$URL"
+          done < sans-urls.txt
+
+      - name: List downloaded files
+        run: ls -l assets/fonts || true
+
+      - name: Commit and push if changed
+        env:
+          GIT_COMMITTER_NAME: GitHub Actions
+          GIT_COMMITTER_EMAIL: actions@github.com
+        run: |
+          set -eux
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/fonts || true
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "chore(fonts): add self-hosted Noto SC woff2 (400,700)"
+            git push origin HEAD:main
+          else
+            echo "No changes to commit"
+          fi
