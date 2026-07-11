@@ -11,4 +11,4 @@ permalink: /chapters/
 - [第三章·庭院深深深几许](chapter-03.md)
 - [第四章·云中谁寄锦书来](chapter-04.md)
 - [第五章·中心藏之，何日忘之](chapter-05.md)
-- [第六章·上穷碧落下黄泉](chapter-06.md)
+- [第六章·叹菩萨枉低眉](chapter-06.md)
