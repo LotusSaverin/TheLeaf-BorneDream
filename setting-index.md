@@ -30,8 +30,8 @@ permalink: /setting-index/
 ## 三、地理坐标
 
 - [地图全览](worldmap.md)
-- [君家](jun-family-architecture.md)
-- [白塔](white-tower-architecture.md)
+- [君家](architecture-jun-family.md)
+- [白塔](architecture-white-tower.md)
 
 
 ## 四、历史
