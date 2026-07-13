@@ -13,3 +13,4 @@ permalink: /chapters/
 - [第五章·叹菩萨枉低眉](chapter-05.md)
 - [第六章·我闻神仙亦有死](chapter-06.md)
 - [第七章·是岁江南旱，衢州人食人](chapter-07.md)
+- [第八章·如入火聚，得清凉门](chapter-08.md)
