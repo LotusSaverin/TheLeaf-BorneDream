@@ -14,3 +14,4 @@ permalink: /chapters/
 - [第六章·我闻神仙亦有死](chapter-06.md)
 - [第七章·是岁江南旱，衢州人食人](chapter-07.md)
 - [第八章·如入火聚，得清凉门](chapter-08.md)
+- [第九章·嗷嗷空城雀，身计何戚促](chapter-09.md)
