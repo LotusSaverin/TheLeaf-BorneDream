@@ -15,4 +15,5 @@ permalink: /chapters/
 - [第七章·是岁江南旱，衢州人食人](chapter-07.md)
 - [第八章·如入火聚，得清凉门](chapter-08.md)
 - [第九章·嗷嗷空城雀，身计何戚促](chapter-09.md)
-- [第十章·感我此言良久立](chapter-10.md)
+- [第十章·爱欲之人，犹如执炬](chapter-10.md)
+- [第十一章·逆风而行，必有烧手之患](chapter-11.md)
