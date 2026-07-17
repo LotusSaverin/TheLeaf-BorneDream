@@ -19,4 +19,5 @@ permalink: /chapters/
 - [第九章·嗷嗷空城雀，身计何戚促](chapter-09.md)
 - [第十章·爱欲之人，犹如执炬](chapter-10.md)
 - [第十一章·逆风而行，必有烧手之患](chapter-11.md)
-- [第十二章·我本将心向明月](chapter-12.md)
+- [第十二章·此时无声胜有声](chapter-12.md)
+- [第十三章·庭院深深深几许](chapter-13.md)
